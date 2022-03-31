@@ -3,12 +3,14 @@ package com.epam;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import lombok.extern.slf4j.Slf4j;
 
 @SuppressWarnings("rawtypes")
-@Slf4j
 class Producer implements Callable {
-
+	private static final Logger LOGGER = LogManager.getLogger(Producer.class);
 	private final List<Integer> sharedList;
 	private static final int MAX_SIZE = 3;
 
@@ -20,10 +22,11 @@ class Producer implements Callable {
 	public Object call() {
 		for (int i = 0; i < 10; i++) {
 			try {
+				Thread.sleep(100);
 				produce(i);
-				log.info("Produced: " + i);
+				LOGGER.info("Produced: " + i);
 			} catch (InterruptedException ex) {
-				log.warn(Producer.class.getName());
+				LOGGER.warn(Producer.class.getName());
 				Thread.currentThread().interrupt();
 			}
 		}
@@ -33,7 +36,7 @@ class Producer implements Callable {
 	private void produce(int i) throws InterruptedException {
 		while (sharedList.size() == MAX_SIZE) {
 			synchronized (sharedList) {
-				log.info("The sharedList is full " + Thread.currentThread().getName() + " is waiting , size: "
+				LOGGER.info("The sharedList is full " + Thread.currentThread().getName() + " is waiting , size: "
 						+ sharedList.size());
 				sharedList.wait();
 			}

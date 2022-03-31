@@ -15,20 +15,19 @@ class Consumer implements Callable {
 	}
 
 	public Object call() {
-		for(int i=0;i<10;i++) {
+		for (int i = 0; i < 10; i++) {
 			try {
-				log.info("Consumed: " + consume());		
+				log.info("Consumed: " + consume());
 			} catch (InterruptedException ex) {
 				log.warn(Consumer.class.getName());
 				Thread.currentThread().interrupt();
 			}
-
 		}
 		return true;
 	}
 
 	private int consume() throws InterruptedException {
-		while(sharedList.isEmpty()) {
+		while (sharedList.isEmpty()) {
 			synchronized (sharedList) {
 				log.info("The shared list is empty " + Thread.currentThread().getName() + " is waiting , size: "
 						+ sharedList.size());

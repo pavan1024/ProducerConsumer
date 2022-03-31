@@ -31,7 +31,7 @@ class Producer implements Callable {
 	}
 
 	private void produce(int i) throws InterruptedException {
-		while(sharedList.size() == MAX_SIZE) {
+		while (sharedList.size() == MAX_SIZE) {
 			synchronized (sharedList) {
 				log.info("The sharedList is full " + Thread.currentThread().getName() + " is waiting , size: "
 						+ sharedList.size());

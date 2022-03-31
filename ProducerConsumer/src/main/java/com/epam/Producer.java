@@ -19,9 +19,9 @@ class Producer implements Callable {
 	@Override
 	public Object call() {
 		for (int i = 0; i < 10; i++) {
-			log.info("Produced: " + i);
 			try {
 				produce(i);
+				log.info("Produced: " + i);
 			} catch (InterruptedException ex) {
 				log.warn(Producer.class.getName());
 				Thread.currentThread().interrupt();

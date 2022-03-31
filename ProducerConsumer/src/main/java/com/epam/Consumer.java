@@ -17,6 +17,7 @@ class Consumer implements Callable {
 	public Object call() {
 		for (int i = 0; i < 10; i++) {
 			try {
+				Thread.sleep(10);
 				log.info("Consumed: " + consume());
 			} catch (InterruptedException ex) {
 				log.warn(Consumer.class.getName());

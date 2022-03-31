@@ -15,12 +15,9 @@ class Consumer implements Callable {
 	}
 
 	public Object call() {
-		int i = 0;
-		while (i < 10) {
+		for(int i=0;i<10;i++) {
 			try {
-				log.info("Consumed: " + consume());
-				i++;
-				Thread.sleep(100);
+				log.info("Consumed: " + consume());		
 			} catch (InterruptedException ex) {
 				log.warn(Consumer.class.getName());
 				Thread.currentThread().interrupt();
@@ -31,7 +28,7 @@ class Consumer implements Callable {
 	}
 
 	private int consume() throws InterruptedException {
-		while (sharedList.isEmpty()) {
+		while(sharedList.isEmpty()) {
 			synchronized (sharedList) {
 				log.info("The shared list is empty " + Thread.currentThread().getName() + " is waiting , size: "
 						+ sharedList.size());
@@ -39,8 +36,8 @@ class Consumer implements Callable {
 			}
 		}
 		synchronized (sharedList) {
-			sharedList.notify();
-			return (Integer) sharedList.remove(0);
+			sharedList.notifyAll();
+			return sharedList.remove(0);
 		}
 	}
 }

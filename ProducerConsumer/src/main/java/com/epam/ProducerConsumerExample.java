@@ -8,9 +8,6 @@ import java.util.concurrent.FutureTask;
 public class ProducerConsumerExample {
 	public static void main(String[] args) throws Exception {
 		List<Integer> numList = new ArrayList<>();
-		for (int i = 0; i < 10; i++) {
-			numList.add(i);
-		}
 		Callable<?> producer = new Producer(numList);
 		Callable<?> consumer = new Consumer(numList);
 		FutureTask<?> futureProducer = new FutureTask<>(producer);

@@ -23,7 +23,7 @@ class Producer implements Callable {
 			try {
 				produce(i);
 			} catch (InterruptedException ex) {
-				log.info(Producer.class.getName());
+				log.warn(Producer.class.getName());
 				Thread.currentThread().interrupt();
 			}
 		}
